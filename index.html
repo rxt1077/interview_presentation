@@ -1,0 +1,248 @@
+<!doctype html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+		<title>reveal.js</title>
+
+		<link rel="stylesheet" href="css/reset.css">
+		<link rel="stylesheet" href="css/reveal.css">
+		<link rel="stylesheet" href="css/theme/black.css">
+
+		<!-- Theme used for syntax highlighting of code -->
+		<link rel="stylesheet" href="lib/css/monokai.css">
+
+		<!-- Printing and PDF exports -->
+		<script>
+			var link = document.createElement( 'link' );
+			link.rel = 'stylesheet';
+			link.type = 'text/css';
+			link.href = window.location.search.match( /print-pdf/gi ) ? 'css/print/pdf.css' : 'css/print/paper.css';
+			document.getElementsByTagName( 'head' )[0].appendChild( link );
+		</script>
+	</head>
+	<body>
+		<div class="reveal">
+			<div class="slides">
+				<section data-markdown>
+                    <textarea data-template>
+                        ## IT 635
+                        ### Database Administration
+
+                        [Ryan Tolboom](mailto://rxt1077@njit.edu)
+                    </textarea>
+                </section>
+				<section data-markdown>
+                    <textarea data-template>
+                        ## [Learning Outcomes](https://docs.google.com/document/d/1d_dsKdZX6nJWzf2th9wAnEVRuXgZVVX_qiZA52phBwE/edit?usp=sharing)
+
+                        * A working knowledge of SQL and NoSQL databases
+                        * Experience writing interfaces to databases through python and php
+                        * An understanding of relational database theory and practice
+                        * An understanding of resiliency and disaster recovery issues as they relate to database administration
+                        * An understanding of database migration issues
+                        * A knowledge of the various database systems currently available and their typical application
+                    </textarea>
+                </section>
+				<section data-markdown>
+                    <textarea data-template>
+                        ## Course Challenges
+
+                        * Diverse learner readiness levels
+                        * Hyflex modality
+                        * BYOD in-person and remote
+                    </textarea>
+                </section>
+				<section data-markdown>
+                    <textarea data-template>
+                        ## Course Framework
+
+                        * [Moodle](https://moodle.njit.edu) - Information and assignment workflow
+                        * Respondus - Proctoring for exams
+                        * Webex - Live class sessions with recordings posted to Moodle
+                        * [github](https://github.com/rxt1077/IT635) - Working repository of exercises
+                        * [Vagrant](https://www.vagrantup.com) - rapid creation of reproducible virtual environments
+                        * [VirtualBox](https://www.virtualbox.org) - virtualization environment for Vagrant
+                    </textarea>
+                </section>
+				<section data-markdown>
+                    <textarea data-template>
+                        ## Authentic Assessment
+
+                        * Query of the week
+                        * Exercises using real-world scenarios
+                        * Semester project
+                    </textarea>
+                </section>
+                <section data-markdown>
+                    <textarea data-template>
+                        ## Query of the Week
+
+                        Imagine a database with the following schema, filled with historical closing stock prices:
+
+                        ```sql
+                        CREATE TABLE IF NOT EXISTS historical (
+                            date DATE,
+                            symbol VARCHAR(32),
+                            price DECIMAL(10,2)
+                        );
+                        ```
+
+                        What does this SQL do?
+
+                        ```sql
+                        SELECT price
+                        FROM historical
+                        WHERE symbol='IBM'
+                        ORDER BY ABS(DATEDIFF(date, DATE(NOW() - INTERVAL 1 YEAR)))
+                        LIMIT 1;
+                        ```
+                    </textarea>
+                </section>
+                <section data-markdown>
+                    <textarea data-template>
+                        ## Exercise 2
+
+                        ### Setup
+
+                        1. Open up git-bash, `cd` into the [IT635 repository](https://github.com/rxt1077/IT635) and do a `git pull`. This should update your repo with the new `Exercise 2`.
+                        2. `cd "Exercise 2"` and run `vagrant up`. This will setup the virtual machine for this exercise.
+                        3. `vagrant ssh` to get into the machine.
+                    </textarea>
+                </section>
+                <section>
+                    <h2>Exercise 2</h2>
+
+                    <h3>Scenario</h3>
+
+                    <small style="text-align: left;">
+                        You're a DBA for a medium sized school district (10K students). Recently you've won the "honor" of being
+                        audited by NJQSAC. In one of your buildings the students may be over 18 years old and have the option of
+                        signing themselves out. Unfortunately your Student Information System does not have a facility to keep
+                        track of this. As such, the attendance secretary keeps the data in a "system of his own." The auditors
+                        want you to run reports on how many students typically sign out each day and who is signing out. You reach
+                        out to the secretary who emails you "sign_outs.zip" which you will find in the /vagrant directory of this VM.
+                        Get the data into a sqlite3 database such that you can run useful reports on it.
+                    </small>
+                </section>
+                <section>
+                    <h2>Exercise 2</h2>
+
+                    <h3>Submission</h3>
+
+                    <small style="text-align: left;">
+                        For this assignment please submit the name (or names if there is a tie) of the student(s) who has signed out
+                        the MOST. Please submit this in the Moodle assignment for this week.
+                    </small>
+                </section>
+                <section>
+                    <h2>Semester Project</h2>
+
+                    <h3>Proposal</h3>
+
+                    <small style="text-align: left;">
+                        Students pick a field that interests them and describe how they would use a database to solve a problem in that field.
+                        The database should have a front end or scraping script for entering data and a reporting system for generating useful
+                        results. Students must consider what type of database would be best for solving their problem and describe what
+                        procedures / staff they would need to support it.
+                    </small>
+                </section>
+                <section>
+                    <h2>Semester Project</h2>
+
+                    <h3>Example proposal</h3>
+
+                    <small style="text-align: left;">                    
+                        The specialty imports business requires a close working relationship with suppliers and customers. In this industry margins
+                        are extremely tight and business usually relies on a series of long-term, trust-based relationships. As such, many specialty
+                        import warehouses feel they do not need and sophisticated electronic inventory system. I propose to design a database for a
+                        specialty import business that they can use to keep track of their inventory. The database will have a web front-end for
+                        checking in deliveries and keeping track of shipments. It will also generate monthly reports that can be printed out. The
+                        entire operation can be set up and run in the cloud and will maintain automatic backups. The selling point of this system is
+                        that it can be administered remotely and does not require full-time IT staff. At the same time it is a custom system and can
+                        be adapted to specific customer needs.
+                    </small>
+                </section>
+                <section data-markdown>
+                    <textarea data-template>
+                        ## Semester Project
+ 
+                        * Steps
+                            * Proposal
+                            * Midterm Review and Deliverables
+                            * Final Review and Deliverables
+                        * Designed to change over the course of the semester
+                        * Biggest challenge for students: systems integration
+                    </textarea>
+                </section>
+                <section data-markdown>
+                    <textarea data-template>
+                        ## Course Lectures
+
+                        * Small Relational Databases
+                        * Real World Relational Databases and their Design Considerations
+                        * Cloud Databases
+                        * NoSQL Databases and their Use
+                        * ETL Tools Demo
+                        * Backup, Replication, and Failover
+                        * Replication in MongoDB
+                    </textarea>
+                </section>
+                <section data-markdown>
+                    <textarea data-template>
+                        ## Course Exercises
+ 
+                        * Exercise 1 - Setting up your work environment
+                        * Exercise 2 - ETL and Report
+                        * Exercise 3 - Setting up a MySQL Server
+                        * Exercise 4 - Creating PHP Frontend on a LAMP Stack 
+                        * Exercise 5 - Replication in MariaDB
+                        * Exercise 6 - Setting up a Three Node MongoDB Replication Set
+                    </textarea>
+                </section>
+                <section>
+                    <section data-markdown>
+                        <textarea data-template>
+                            ## Questions?
+                            
+                            * [What does a Vagrantfile look like?](https://github.com/rxt1077/IT635/blob/master/Exercise%205/Vagrantfile)
+                            * [What does a typical lecture look like?](https://docs.google.com/presentation/d/1To8Q4siOmPfZlAoRmUXzzu3qILMdmdw5SBVUENh-QxA/edit?usp=sharing)
+                        </textarea>
+                    </section>
+                    <section data-markdown style="font-size: 30px;">
+                        <textarea data-template>
+                            ## About Me
+
+                            * Linux: Gentoo, Crux, Arch, Void, NixOS
+                            * Amateur Radio: Digital modes, mesh networks, packet radio
+                            * Distributed Networking: cjdns, ipfs, i2p
+                            * Automation: Ansible, Terraform
+                            * Cloud Orchestration: Kubernetes, Docker Swarm
+                            * Distributed Applications: Solidity contracts, reactjs on ipfs
+                            * Programming Langauges: clojure, erlang
+
+                            Future of IT? Virtualization and automation. Everything is code.
+                        </textarea>
+                    </section>
+                </section>
+			</div>
+		</div>
+
+		<script src="js/reveal.js"></script>
+
+		<script>
+			// More info about config & dependencies:
+			// - https://github.com/hakimel/reveal.js#configuration
+			// - https://github.com/hakimel/reveal.js#dependencies
+			Reveal.initialize({
+				dependencies: [
+					{ src: 'plugin/markdown/marked.js' },
+					{ src: 'plugin/markdown/markdown.js' },
+					{ src: 'plugin/notes/notes.js', async: true },
+					{ src: 'plugin/highlight/highlight.js', async: true }
+				]
+			});
+		</script>
+	</body>
+</html>
